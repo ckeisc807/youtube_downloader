@@ -5,14 +5,14 @@ fn input() -> String {
     let mut buffer = String::new();
     stdin().read_line(&mut buffer).unwrap();
     println!("path {:#?}", buffer);
-    
-    if buffer.chars().last() == Some('\n') {
+
+    if buffer.ends_with('\n') {
         buffer.pop();
     }
-    if buffer.chars().last() == Some('\r') {
+    if buffer.ends_with('\r') {
         buffer.pop();
     }
-    return buffer
+    buffer
 }
 
 #[tokio::main]
@@ -23,7 +23,7 @@ async fn main() {
     print!("Enter file in which to save the video: ");
     stdout().flush().unwrap();
     let output_path = input();
-    
+
     let video_options = VideoOptions {
         quality: VideoQuality::Highest,
         filter: VideoSearchOptions::VideoAudio,
